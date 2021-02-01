@@ -25,4 +25,5 @@ form.addEventListener('submit', event =>{
     p.innerHTML = currentScore;
     currentScore = 'Pontuação: ';
     
+    
 })
