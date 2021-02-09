@@ -1,43 +1,63 @@
 const form = document.querySelector('.quiz-form');
 
-const correctAnswers = ['B', 'A', 'B', 'B'];
+const correctAnswers = ['B', 'B', 'B', 'D'];
 
 const p = document.querySelector('.score');
 
 
 let score = 0;
-let contCorrectAnswers = 0;
-const userAnswers = [
-    form.inputQuestion1.value,
-    form.inputQuestion2.value,
-    form.inputQuestion3.value,
-    form.inputQuestion4.value
-];
+
+
+const getUserAnswers = () => { 
+    let userAnswers = [];
+
+    correctAnswers.forEach((_, index) => {
+        const userAnswer = form[`inputQuestion${index + 1}`].value;
+        userAnswers.push(userAnswer)
+    });
+
+    return userAnswers;
+}
 
 p.innerHTML = `Pontuação: ${score} %`;
-const scoreUser = () => {    
+const calculatUserScore = userAnswers => {    
     userAnswers.forEach((userAnswer, index) =>{
         if(userAnswer === correctAnswers[index]){
-            contCorrectAnswers++;
-            const intevalScore = setInterval(() => {
-                score++;
-                
-                p.innerHTML = `Pontuação: ${score} %`;
-                
-                if(score === (contCorrectAnswers*25)){
-                    
-                    clearInterval(intevalScore);
-                }
-                
-            }, 500);           
+            score+=25;
+                      
         }        
     });
-    scrollTo(0,0)    
+      
+}
+const animateFinalScore = () => {
+    let counter = 0;
+
+    const intevalScore = setInterval(() => {
+        
+        if(counter === score){            
+            clearInterval(intevalScore);
+        }
+        p.innerHTML = `Pontuação: ${counter++} %`;
+        
+    }, 10); 
+    
 }
 
 form.addEventListener('submit', event =>{
     event.preventDefault();
+
     
-    scoreUser();
+    const userAnswers = getUserAnswers();
+
+    calculatUserScore(userAnswers);
+
+    scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+    })
+
+    animateFinalScore();
+    console.log(score, " ")
     
 })
