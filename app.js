@@ -8,16 +8,11 @@ const p = document.querySelector('.score');
 let score = 0;
 
 
-const getUserAnswers = () => { 
-    let userAnswers = [];
+const getUserAnswers = () => correctAnswers.map((_,index) => 
+    form[`inputQuestion${index + 1}`].value) 
+    
+    
 
-    correctAnswers.forEach((_, index) => {
-        const userAnswer = form[`inputQuestion${index + 1}`].value;
-        userAnswers.push(userAnswer)
-    });
-
-    return userAnswers;
-}
 
 p.innerHTML = `Pontuação: ${score} %`;
 const calculatUserScore = userAnswers => {    
