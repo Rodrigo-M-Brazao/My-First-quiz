@@ -1,6 +1,6 @@
 const form = document.querySelector('.quiz-form');
 
-const correctAnswers = ['B', 'B', 'B', 'D'];
+const correctAnswers = ['B', 'A', 'B', 'D'];
 
 const p = document.querySelector('.score');
 
@@ -15,6 +15,7 @@ const getUserAnswers = () => correctAnswers.map((_,index) =>
 
 
 p.innerHTML = `Pontuação: ${score} %`;
+
 const calculatUserScore = userAnswers => {    
     userAnswers.forEach((userAnswer, index) =>{
         if(userAnswer === correctAnswers[index]){
@@ -38,11 +39,17 @@ const animateFinalScore = () => {
     
 }
 
+const resetScore = () => {
+    score = 0
+}
+
 form.addEventListener('submit', event =>{
     event.preventDefault();
 
     
     const userAnswers = getUserAnswers();
+
+    resetScore();
 
     calculatUserScore(userAnswers);
 
